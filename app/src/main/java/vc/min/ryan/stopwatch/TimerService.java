@@ -10,10 +10,15 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerService extends Service {
+    // Data set
+    private List<TimerItem> timerItems = new ArrayList<TimerItem>();
+
     private long milliTime = 0;
     private long startTime;
     private boolean running = false;
@@ -31,6 +36,7 @@ public class TimerService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        timerItems.add((TimerItem) intent.getParcelableExtra("data"));
         return mBinder;
     }
 

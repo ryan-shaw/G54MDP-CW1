@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
@@ -32,16 +33,20 @@ public class TimerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("tag", "onCreate");
+
         setContentView(R.layout.activity_timer);
-        guiutils = new GUIUtils();
+
         secondsText = (TextView) findViewById(R.id.time);
         fabStart = (ImageButton) findViewById(R.id.start_button);
         fabDestroy = (ImageButton) findViewById(R.id.reset_button);
-        guiutils.configureFab(fabStart);
-        guiutils.configureFab(fabDestroy);
+        GUIUtils.configureFab(fabStart);
+        GUIUtils.configureFab(fabDestroy);
         fabStart.setOnClickListener(startListener);
         fabDestroy.setOnClickListener(destroyListener);
+
         Intent intent = new Intent(this, TimerService.class);
+        Parcelable parcel = new TimerItem(0,0,0);
+        intent.putExtra("data", parcel);
         bindService(intent, timerServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
