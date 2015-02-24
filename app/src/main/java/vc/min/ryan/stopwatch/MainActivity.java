@@ -110,14 +110,12 @@ public class MainActivity extends Activity {
     View.OnClickListener addOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, TimerActivity.class);
-            TimerItem timer = new TimerItem(currentId++);
-            dataset.add(timer);
-            mAdapter.notifyDataSetChanged();
-            intent.putExtra("timerId", timer.getId());
-            timerService.addTimer(timer);
-//            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) MainActivity.this, (TextView) v.findViewById(R.id.title), "timer");
-//            startActivity(intent);
+        Intent intent = new Intent(context, TimerActivity.class);
+        TimerItem timer = new TimerItem(currentId++);
+        dataset.add(timer);
+        mAdapter.notifyDataSetChanged();
+        intent.putExtra("timerId", timer.getId());
+        timerService.addTimer(timer);
         }
     };
 
@@ -125,7 +123,6 @@ public class MainActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
-//            Log.d("tag", "Updated for: "+ item.getId());
             for(int i = 0; i < dataset.size(); i++){
                 TimerItem iteml = dataset.get(i);
                 if(iteml.getId() == item.getId()){

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.os.SystemClock;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ryan on 23/02/2015.
@@ -17,6 +19,11 @@ public class TimerItem implements Parcelable{
     private boolean running;
     private int id;
     private boolean destroyed;
+    private List<LapItem> laps;
+
+    public TimerItem(){
+        laps = new ArrayList<LapItem>();
+    }
 
     public int describeContents(){
         return 0;
@@ -29,6 +36,7 @@ public class TimerItem implements Parcelable{
         out.writeLong(pauseTime);
         out.writeByte((byte) (running ? 1 : 0));
         out.writeByte((byte) (destroyed ? 1 : 0));
+        out.writeList(laps);
     }
 
     public static final Parcelable.Creator<TimerItem> CREATOR =
@@ -45,6 +53,7 @@ public class TimerItem implements Parcelable{
     public TimerItem(int id){
         this(id, 0,0,0);
     }
+
     public TimerItem(int id, long startTime, long time, long pauseTime){
         this.id = id;
         this.startTime = startTime;
@@ -52,6 +61,7 @@ public class TimerItem implements Parcelable{
         this.pauseTime = time;
         this.running = false;
         this.destroyed = false;
+        this.laps = new ArrayList<LapItem>();
     }
 
     private TimerItem(Parcel in){
@@ -61,6 +71,7 @@ public class TimerItem implements Parcelable{
         this.pauseTime = in.readLong();
         this.running = in.readByte() != 0;
         this.destroyed = in.readByte() != 0;
+        in.readTypedList(laps, LapItem.CREATOR);
     }
 
     public void start(){
@@ -92,6 +103,10 @@ public class TimerItem implements Parcelable{
         startTime = SystemClock.uptimeMillis();
     }
 
+    public void lap(){
+        laps.add(new LapItem(time));
+    }
+
     public void updateTimer(){
         if(running)
             time = pauseTime + SystemClock.uptimeMillis() - startTime;
@@ -106,6 +121,10 @@ public class TimerItem implements Parcelable{
         int minutes = seconds / 60;
         seconds = seconds % 60;
         return String.format("%02d:%02d:%02d", minutes, seconds, (time / 10) % 100);
+    }
+
+    public List<LapItem> getLaps(){
+        return laps;
     }
 
     public int getSeconds(){

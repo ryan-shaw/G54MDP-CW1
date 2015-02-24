@@ -68,6 +68,14 @@ public class TimerService extends Service {
         getTimerById(timerId).reset();
     }
 
+    public void lapTimer(int timerId){
+        getTimerById(timerId).lap();
+    }
+
+    public List<LapItem> getLaps(int timerId){
+        return getTimerById(timerId).getLaps();
+    }
+
     public void destroyTimer(int timerId){
         Log.d("service", "Destroy: "+ timerId);
         for(int i = timerItems.size() - 1; i >= 0; i--){
