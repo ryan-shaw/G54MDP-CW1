@@ -124,11 +124,10 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
             for(int i = 0; i < dataset.size(); i++){
-                TimerItem iteml = dataset.get(i);
-                if(iteml.getId() == item.getId()){
-                    iteml = item;
+                TimerItem item1 = dataset.get(i);
+                if(item1.getFormattedTime() != item.getFormattedTime()){
+                    item1 = item;
                     mAdapter.notifyItemChanged(i);
-                    continue;
                 }
             }
         }

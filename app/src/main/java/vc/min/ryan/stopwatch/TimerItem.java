@@ -143,4 +143,8 @@ public class TimerItem implements Parcelable{
         return running;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
 }

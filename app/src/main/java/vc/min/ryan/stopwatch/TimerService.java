@@ -122,7 +122,7 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime();
             }
-            handler.postDelayed(this, 0);
+            handler.postDelayed(this, 2);
         }
     };
 }
