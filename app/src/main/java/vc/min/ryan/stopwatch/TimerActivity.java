@@ -31,6 +31,8 @@ public class TimerActivity extends Activity {
     private ImageButton fabDestroy;
     private View fabStop;
 
+    private final String TAG = "TimerActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class TimerActivity extends Activity {
         fabStart.setOnClickListener(startListener);
         fabDestroy.setOnClickListener(destroyListener);
         timerId  = getIntent().getIntExtra("timerId", 0);
+        Log.d(TAG, "" + timerId);
 
         Intent intent = new Intent(this, TimerService.class);
         bindService(intent, timerServiceConnection, Context.BIND_AUTO_CREATE);
@@ -100,11 +103,22 @@ public class TimerActivity extends Activity {
         public void onClick(View view){
             Log.d("TimerActivity", "Destroy timer: " + timerId);
             if(bound){
-                timerService.destroyTimer(timerId);//TODO: Only destroy service if 0 timers
+                timerService.destroyTimer(timerId);
             }
             finish();
         }
     };
+
+    private void updateControls(){
+        if(bound){
+            if(timerService.isRunning(timerId)){
+                fabStart.setImageResource(R.drawable.ic_action_pause);
+            }else{
+                fabStart.setImageResource(R.drawable.ic_action_play);
+            }
+        }
+    }
+
 
     View.OnClickListener startListener = new View.OnClickListener(){
         @Override
@@ -117,7 +131,6 @@ public class TimerActivity extends Activity {
                     timerService.startTimer(timerId);
                     fabStart.setImageResource(R.drawable.ic_action_pause);
                 }
-
             }
         }
     };
@@ -127,6 +140,7 @@ public class TimerActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             TimerItem item = intent.getParcelableExtra("obj");
+            if(item.getId() != timerId) return;
             secondsText.setText(item.getFormattedTime());
 
         }
@@ -138,6 +152,7 @@ public class TimerActivity extends Activity {
             TimerService.LocalBinder localBinder = (TimerService.LocalBinder) service;
             timerService = localBinder.getService();
             bound = true;
+            updateControls();
         }
 
         @Override

@@ -34,6 +34,10 @@
         android:layout_height="144dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:weightSum="1">
 
         <TextView
@@ -42,7 +46,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/initial_timer"
             android:id="@+id/time"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:transitionName="timer"/>
 
     </LinearLayout>
 

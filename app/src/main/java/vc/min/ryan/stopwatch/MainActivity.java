@@ -1,6 +1,7 @@
 package vc.min.ryan.stopwatch;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,11 +56,9 @@ public class MainActivity extends Activity {
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-//        String[] dataset = {"test", "test1"};
-//        List<TimerItem> dataset = new ArrayList<TimerItem>();
-//        dataset.add(new TimerItem(0, 0, 0));
+
         dataset = new ArrayList<TimerItem>();
-        mAdapter = new TimerDataAdapter(dataset);
+        mAdapter = new TimerDataAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
 
         Intent intent = new Intent(this, TimerService.class);
@@ -116,7 +116,8 @@ public class MainActivity extends Activity {
             mAdapter.notifyDataSetChanged();
             intent.putExtra("timerId", timer.getId());
             timerService.addTimer(timer);
-            startActivity(intent);
+//            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) MainActivity.this, (TextView) v.findViewById(R.id.title), "timer");
+//            startActivity(intent);
         }
     };
 
