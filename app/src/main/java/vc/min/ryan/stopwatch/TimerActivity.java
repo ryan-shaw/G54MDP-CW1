@@ -22,6 +22,8 @@ public class TimerActivity extends Activity {
     TimerService timerService;
     boolean bound = false;
     private GUIUtils guiutils;
+    private int timerId;
+    private TimerItem timer;
 
     // Views
     private TextView secondsText;
@@ -32,7 +34,7 @@ public class TimerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("tag", "onCreate");
+        Log.d("TimerActivity", "onCreate");
 
         setContentView(R.layout.activity_timer);
 
@@ -43,10 +45,9 @@ public class TimerActivity extends Activity {
         GUIUtils.configureFab(fabDestroy);
         fabStart.setOnClickListener(startListener);
         fabDestroy.setOnClickListener(destroyListener);
+        timerId  = getIntent().getIntExtra("timerId", 0);
 
         Intent intent = new Intent(this, TimerService.class);
-        Parcelable parcel = new TimerItem(0,0,0);
-        intent.putExtra("data", parcel);
         bindService(intent, timerServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -57,13 +58,21 @@ public class TimerActivity extends Activity {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        Log.d("tag", "onStop");
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d("tag", "onDestroy");
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
         if(bound){
             unbindService(timerServiceConnection);
             bound = false;
         }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d("tag", "onStop");
+
     }
 
     @Override
@@ -77,21 +86,21 @@ public class TimerActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        // Unregister as the activity is not visible
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
+        Log.d("tag", "onPause");
     }
 
     public void onStopTimer (View v) {
         if (bound) {
-            timerService.stopTimer();
+            timerService.stopTimer(timerId);
         }
     }
 
     View.OnClickListener destroyListener = new View.OnClickListener(){
         @Override
         public void onClick(View view){
+            Log.d("TimerActivity", "Destroy timer: " + timerId);
             if(bound){
-                timerService.destroy();
+                timerService.destroyTimer(timerId);//TODO: Only destroy service if 0 timers
             }
             finish();
         }
@@ -101,11 +110,11 @@ public class TimerActivity extends Activity {
         @Override
         public void onClick(View view){
             if(bound){
-                if(timerService.isRunning()){
-                    timerService.pauseTimer();
+                if(timerService.isRunning(timerId)){
+                    timerService.pauseTimer(timerId);
                     fabStart.setImageResource(R.drawable.ic_action_play);
                 }else{
-                    timerService.startTimer();
+                    timerService.startTimer(timerId);
                     fabStart.setImageResource(R.drawable.ic_action_pause);
                 }
 
@@ -117,16 +126,8 @@ public class TimerActivity extends Activity {
     private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            long time = intent.getLongExtra("millisecs", 0);
-
-            int seconds = (int) (time / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            int milliSeconds = (int) (time % 1000);
-
-            secondsText.setText(minutes + ":"
-            + String.format("%02d", seconds) + ":"
-            + new DecimalFormat("00").format(milliSeconds));
+            TimerItem item = intent.getParcelableExtra("obj");
+            secondsText.setText(item.getFormattedTime());
 
         }
     };

@@ -2,4 +2,8 @@
     <!-- Reveal transition colors -->
     <color name="color_set_1_primary">#4fc3f7</color>
     <color name="color_set_1_accent">#009688</color>
+
+    <!-- RecyclerView item colours -->
+    <color name="color_white">#fff</color>
+    <color name="color_grey">#d3d3d3</color>
 </resources>
