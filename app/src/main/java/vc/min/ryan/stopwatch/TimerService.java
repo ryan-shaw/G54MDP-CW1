@@ -107,7 +107,6 @@ public class TimerService extends Service {
 
     private void sendTime() {
         for(TimerItem item: timerItems){
-            if(!item.isRunning()) continue;
             Intent intent = new Intent("time");
             intent.putExtra("obj", item);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
