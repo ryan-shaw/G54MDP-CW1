@@ -56,4 +56,8 @@ public class TimerDataAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     public void updateData(List<TimerItem> newItems){
         mDataset = newItems;
     }
+
+    public List<TimerItem> getData(){
+        return mDataset;
+    }
 }

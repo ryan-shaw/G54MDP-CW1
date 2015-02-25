@@ -123,9 +123,9 @@ public class MainActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
-            for(int i = 0; i < dataset.size(); i++){
-                TimerItem item1 = dataset.get(i);
-                if(item1.getFormattedTime() != item.getFormattedTime()){
+            for(int i = 0; i < mAdapter.getData().size(); i++){
+                TimerItem item1 = mAdapter.getData().get(i);
+                if(item1.getFormattedTime() != item.getFormattedTime() && item1.getId() == item.getId()){
                     item1 = item;
                     mAdapter.notifyItemChanged(i);
                 }
