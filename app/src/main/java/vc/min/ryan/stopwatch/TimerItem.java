@@ -20,6 +20,7 @@ public class TimerItem implements Parcelable{
     private int id;
     private boolean destroyed;
     private List<LapItem> laps;
+    private long timeBeforeLap;
 
     public TimerItem(){
         laps = new ArrayList<LapItem>();
@@ -37,6 +38,7 @@ public class TimerItem implements Parcelable{
         out.writeByte((byte) (running ? 1 : 0));
         out.writeByte((byte) (destroyed ? 1 : 0));
         out.writeList(laps);
+        out.writeLong(timeBeforeLap);
     }
 
     public static final Parcelable.Creator<TimerItem> CREATOR =
@@ -51,10 +53,10 @@ public class TimerItem implements Parcelable{
             };
 
     public TimerItem(int id){
-        this(id, 0,0,0);
+        this(id, 0,0, 0);
     }
 
-    public TimerItem(int id, long startTime, long time, long pauseTime){
+    public TimerItem(int id, long startTime, long time, long timeBeforeLap){
         this.id = id;
         this.startTime = startTime;
         this.time = time;
@@ -62,6 +64,7 @@ public class TimerItem implements Parcelable{
         this.running = false;
         this.destroyed = false;
         this.laps = new ArrayList<LapItem>();
+        this.timeBeforeLap = timeBeforeLap;
     }
 
     private TimerItem(Parcel in){
@@ -72,6 +75,7 @@ public class TimerItem implements Parcelable{
         this.running = in.readByte() != 0;
         this.destroyed = in.readByte() != 0;
         in.readTypedList(laps, LapItem.CREATOR);
+        this.timeBeforeLap = in.readLong();
     }
 
     public void start(){
@@ -104,7 +108,8 @@ public class TimerItem implements Parcelable{
     }
 
     public void lap(){
-        long lapTime = time - laps.get(laps.size()).getTime();
+        long lapTime = time - timeBeforeLap;
+        timeBeforeLap = time;
         laps.add(new LapItem(lapTime));
     }
 
