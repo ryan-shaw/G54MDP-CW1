@@ -104,7 +104,8 @@ public class TimerItem implements Parcelable{
     }
 
     public void lap(){
-        laps.add(new LapItem(time));
+        long lapTime = time - laps.get(laps.size()).getTime();
+        laps.add(new LapItem(lapTime));
     }
 
     public void updateTimer(){

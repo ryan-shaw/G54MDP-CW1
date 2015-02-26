@@ -43,4 +43,8 @@ public class LapItem implements Parcelable{
         seconds = seconds % 60;
         return String.format("%02d:%02d:%02d", minutes, seconds, (time / 10) % 100);
     }
+
+    public long getTime(){
+        return time;
+    }
 }
