@@ -20,7 +20,9 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TimerService extends Service {
-    // Data set
+    /**
+     * TimerItem data set
+     */
     private List<TimerItem> timerItems = new ArrayList<TimerItem>();
 
     private Handler handler         = new Handler();
