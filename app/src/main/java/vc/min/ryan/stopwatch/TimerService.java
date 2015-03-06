@@ -40,7 +40,7 @@ public class TimerService extends Service {
     @Override
     public void onCreate(){
         Log.d("service", "onCreate");
-        handler.postDelayed(updateTime, 0);
+        handler.post(updateTime);
         notification = new Notification(R.drawable.abc_ab_share_pack_holo_dark, "Timers running", System.currentTimeMillis());
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -131,7 +131,7 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime();
             }
-            handler.postDelayed(this, 2);
+            handler.post(this);
         }
     };
 }
