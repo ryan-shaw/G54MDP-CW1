@@ -37,7 +37,7 @@ public class TimerService extends Service {
     @Override
     public void onCreate(){
         Log.d("service", "onCreate");
-        handler.postDelayed(updateTime, 0);
+        handler.post(updateTime);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime();
             }
-            handler.postDelayed(this, 2);
+            handler.post(this);
         }
     };
 }
