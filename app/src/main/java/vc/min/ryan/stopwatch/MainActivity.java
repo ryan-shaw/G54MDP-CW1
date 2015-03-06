@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
 
     private Context context;
     private GUIUtils guiUtils;
+    private Intent serviceIntent;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -61,8 +62,10 @@ public class MainActivity extends Activity {
         mAdapter = new TimerDataAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        Intent intent = new Intent(this, TimerService.class);
-        bindService(intent, timerServiceConnection, Context.BIND_AUTO_CREATE);
+        serviceIntent = new Intent(this, TimerService.class);
+
+        startService(serviceIntent);
+        bindService(serviceIntent, timerServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -85,6 +88,17 @@ public class MainActivity extends Activity {
             unbindService(timerServiceConnection);
             bound = false;
         }
+
+        // Destroy the service if no timers are running and user exited app
+        boolean anyRunning = false;
+        for(int i = 0; i < timerService.getTimers().size(); i++){
+            if(timerService.getTimers().get(i).isRunning()){
+                anyRunning = true;
+                break;
+            }
+        }
+        if(!anyRunning)
+            stopService(serviceIntent);
     }
 
     @Override
@@ -139,6 +153,7 @@ public class MainActivity extends Activity {
             TimerService.LocalBinder localBinder = (TimerService.LocalBinder) service;
             timerService = localBinder.getService();
             bound = true;
+            mAdapter.updateData(timerService.getTimers());
         }
 
         @Override

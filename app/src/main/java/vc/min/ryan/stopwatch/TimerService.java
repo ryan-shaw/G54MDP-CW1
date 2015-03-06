@@ -3,6 +3,7 @@ package vc.min.ryan.stopwatch;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -25,8 +26,10 @@ public class TimerService extends Service {
      */
     private List<TimerItem> timerItems = new ArrayList<TimerItem>();
 
-    private Handler handler         = new Handler();
-    private final IBinder mBinder   = new LocalBinder();
+    private Handler handler             = new Handler();
+    private final IBinder mBinder       = new LocalBinder();
+    private Notification notification; // Our foreground notification
+    private final int NOTIFICATION_ID = 1;
 
     public class LocalBinder extends Binder {
         TimerService getService(){
@@ -37,7 +40,12 @@ public class TimerService extends Service {
     @Override
     public void onCreate(){
         Log.d("service", "onCreate");
-        handler.post(updateTime);
+        handler.postDelayed(updateTime, 0);
+        notification = new Notification(R.drawable.abc_ab_share_pack_holo_dark, "Timers running", System.currentTimeMillis());
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        notification.setLatestEventInfo(this, "Test notify", "messege", pendingIntent);
+        startForeground(NOTIFICATION_ID, notification);
     }
 
     @Override
@@ -123,7 +131,7 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime();
             }
-            handler.post(this);
+            handler.postDelayed(this, 2);
         }
     };
 }
