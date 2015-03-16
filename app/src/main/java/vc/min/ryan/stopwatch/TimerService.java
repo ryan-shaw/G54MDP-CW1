@@ -32,6 +32,7 @@ public class TimerService extends Service {
     private Notification.Builder notificationBuilder;
     private NotificationManager notificationManager;
     private final int NOTIFICATION_ID = 1;
+    private int currentTimerId = 0;
     private final String NOTIFICATION_TITLE = "Stopwatch";
 
     public class LocalBinder extends Binder {
@@ -99,7 +100,10 @@ public class TimerService extends Service {
     public void lapTimer(int timerId){
         getTimerById(timerId).lap();
         updateNotification();
+    }
 
+    public int getNewTimerId(){
+        return currentTimerId++;
     }
 
     public List<LapItem> getLaps(int timerId){

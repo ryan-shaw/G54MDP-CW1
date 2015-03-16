@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
     private TimerDataAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<TimerItem> dataset;
-    private int currentId;
     private boolean bound;
     private TimerService timerService;
 
@@ -118,11 +117,9 @@ public class MainActivity extends Activity {
     View.OnClickListener addOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-        Intent intent = new Intent(context, TimerActivity.class);
-        TimerItem timer = new TimerItem(currentId++);
+        TimerItem timer = new TimerItem(timerService.getNewTimerId());
         dataset.add(timer);
         mAdapter.notifyDataSetChanged();
-        intent.putExtra("timerId", timer.getId());
         timerService.addTimer(timer);
         }
     };
@@ -133,7 +130,7 @@ public class MainActivity extends Activity {
             TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
             for(int i = 0; i < mAdapter.getData().size(); i++){
                 TimerItem item1 = mAdapter.getData().get(i);
-                if(item1.getFormattedTime() != item.getFormattedTime() && item1.getId() == item.getId()){
+                if(item1.getId() == item.getId() && item1.getFormattedTime() != item.getFormattedTime()){
                     item1 = item;
                     mAdapter.notifyItemChanged(i);
                 }
