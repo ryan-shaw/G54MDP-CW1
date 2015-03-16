@@ -14,7 +14,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
     public RecyclerViewHolder(View v){
         super(v);
         mTitle = (TextView) v.findViewById(R.id.title);
-        mContent = (TextView) v.findViewById(R.id.time);
+        mContent = (TextView) v.findViewById(R.id.laps);
         v.setOnClickListener(this);
     }
 

@@ -36,7 +36,9 @@ public class TimerDataAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position){
-        holder.mTitle.setText(mDataset.get(position).getFormattedTime());
+        TimerItem timer = mDataset.get(position);
+        holder.mTitle.setText(timer.getFormattedTime());
+        holder.mContent.setText(timer.getLaps().size() + " laps");
         holder.setClickListener(new RecyclerViewHolder.ClickListener() {
             @Override
             public void onClick(View v, int position, boolean isLongClick) {

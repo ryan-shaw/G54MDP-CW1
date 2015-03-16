@@ -88,7 +88,7 @@ public class TimerItem implements Parcelable{
      */
     public void start(){
         running = true;
-        startTime = SystemClock.uptimeMillis();
+        startTime = SystemClock.elapsedRealtime();
     }
 
     /**
@@ -127,7 +127,7 @@ public class TimerItem implements Parcelable{
     public void reset(){
         time = 0;
         pauseTime = 0;
-        startTime = SystemClock.uptimeMillis();
+        startTime = SystemClock.elapsedRealtime();
     }
 
     /**
@@ -144,7 +144,7 @@ public class TimerItem implements Parcelable{
      */
     public void updateTimer(){
         if(running)
-            time = pauseTime + SystemClock.uptimeMillis() - startTime;
+            time = pauseTime + SystemClock.elapsedRealtime() - startTime;
     }
 
     /**
