@@ -1,6 +1,7 @@
 package vc.min.ryan.stopwatch;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
         super(v);
         mTitle = (TextView) v.findViewById(R.id.title);
         mContent = (TextView) v.findViewById(R.id.laps);
+
         v.setOnClickListener(this);
     }
 

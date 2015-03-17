@@ -27,13 +27,16 @@ public class TimerService extends Service {
      */
     private List<TimerItem> timerItems = new ArrayList<TimerItem>();
 
-    private Handler handler             = new Handler();
-    private final IBinder mBinder       = new LocalBinder();
-    private Notification.Builder notificationBuilder;
-    private NotificationManager notificationManager;
-    private final int NOTIFICATION_ID = 1;
-    private int currentTimerId = 0;
-    private final String NOTIFICATION_TITLE = "Stopwatch";
+    private Handler handler                             = new Handler();
+    private final IBinder mBinder                       = new LocalBinder();
+    private Notification.Builder notificationBuilder    = null;
+    private NotificationManager notificationManager     = null;
+    private final int NOTIFICATION_ID                   = 1;
+    /**
+     * Holds the currentTimerId to assign to the next created timer
+     */
+    private int currentTimerId                          = 0;
+    private final String NOTIFICATION_TITLE             = "Stopwatch";
 
     public class LocalBinder extends Binder {
         TimerService getService(){
@@ -44,16 +47,17 @@ public class TimerService extends Service {
     @Override
     public void onCreate(){
         Log.d("service", "onCreate");
+        // Start timer loop
         handler.post(updateTime);
+        // Create notification builder
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         notificationBuilder = new Notification.Builder(this)
                 .setContentTitle(NOTIFICATION_TITLE)
                 .setContentText(getTimersRunning() + " timers running")
-                .setSmallIcon(R.drawable.abc_ab_share_pack_holo_dark)
+                .setSmallIcon(R.drawable.abc_ab_share_pack_holo_dark) //TODO: Make icon
                 .setContentIntent(pendingIntent);
-        //notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
 
         startForeground(NOTIFICATION_ID, notificationBuilder.build());
     }
@@ -64,44 +68,73 @@ public class TimerService extends Service {
         return mBinder;
     }
 
+    /**
+     * Add timer to timer list
+     * @param timer
+     */
     public void addTimer(TimerItem timer){
         timerItems.add(timer);
         updateNotification();
     }
 
+    /**
+     * Start a timer
+     * @param timerId
+     */
     public void startTimer(int timerId){
         getTimerById(timerId).start();
         updateNotification();
     }
 
+    /**
+     * Stop a timer
+     * @param timerId
+     */
     public void stopTimer(int timerId){
         getTimerById(timerId).stop();
         updateNotification();
     }
 
+    /**
+     * Resume a timer
+     * @param timerId
+     */
     public void resumeTimer(int timerId){
         getTimerById(timerId).resume();
         updateNotification();
-
     }
 
+    /**
+     * Pause a timer
+     * @param timerId
+     */
     public void pauseTimer(int timerId){
         getTimerById(timerId).pause();
         updateNotification();
-
     }
 
+    /**
+     * Reset a timer
+     * @param timerId
+     */
     public void resetTimer(int timerId){
         getTimerById(timerId).reset();
         updateNotification();
-
     }
 
+    /**
+     * Lap a timer
+     * @param timerId
+     */
     public void lapTimer(int timerId){
         getTimerById(timerId).lap();
         updateNotification();
     }
 
+    /**
+     * Get currentTimerId for new timer
+     * @return currentTimerId
+     */
     public int getNewTimerId(){
         return currentTimerId++;
     }
