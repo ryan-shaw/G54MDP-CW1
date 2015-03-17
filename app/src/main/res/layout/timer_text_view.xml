@@ -26,5 +26,22 @@
         android:text="0 Laps"
         android:id="@+id/laps"
         android:layout_alignBottom="@+id/title"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/title"
+        android:layout_marginStart="24dp" />
+
+    <ImageButton
+        android:layout_width="70px"
+        android:layout_height="70px"
+        android:id="@+id/play_pause_button"
+        android:src="@drawable/ic_action_play"
+        android:background="@drawable/transparent_ripple"
+        android:tint="#000"
+        android:elevation="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/laps"
+        android:layout_marginStart="24dp"
+        />
+
+
+
 </RelativeLayout>
