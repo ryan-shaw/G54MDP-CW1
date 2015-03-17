@@ -132,7 +132,8 @@ public class MainActivity extends Activity {
             TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
             for(int i = 0; i < mAdapter.getData().size(); i++){
                 TimerItem item1 = mAdapter.getData().get(i);
-                if(item1.getId() == item.getId() && !item1.getFormattedTime().equals(item.getFormattedTime())){
+                Log.d("test", item.getFormattedTime() + ":"+item1.getFormattedTime());
+                if(item1.getId() == item.getId()){
                     item1 = item;
                     mAdapter.notifyItemChanged(i);
                 }
