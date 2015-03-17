@@ -3,6 +3,7 @@ package vc.min.ryan.stopwatch;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -11,12 +12,20 @@ import android.widget.TextView;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView mTitle;
     public TextView mContent;
+    private ImageButton mPlayPause;
     private ClickListener clickListener;
+
     public RecyclerViewHolder(View v){
         super(v);
         mTitle = (TextView) v.findViewById(R.id.title);
         mContent = (TextView) v.findViewById(R.id.laps);
-
+        mPlayPause = (ImageButton) v.findViewById(R.id.play_pause_button);
+        mPlayPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TEST", "click");
+            }
+        });
         v.setOnClickListener(this);
     }
 
