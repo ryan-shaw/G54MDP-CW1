@@ -204,7 +204,7 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime(item);
             }
-            handler.postDelayed(this, 10);
+            handler.post(this);
         }
     };
 }

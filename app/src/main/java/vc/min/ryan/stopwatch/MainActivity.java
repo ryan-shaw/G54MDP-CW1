@@ -114,6 +114,33 @@ public class MainActivity extends Activity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
     }
 
+    /**
+     * Toggle the timer state (used for the in-row play/pause button
+     * @param position
+     * @return newState, true = running, false = not running
+     */
+    public boolean toggleTimer(int position){
+        TimerItem timer = dataset.get(position);
+        if(timer.isRunning()) {
+            timerService.pauseTimer(timer.getId());
+        } else {
+            timerService.startTimer(timer.getId());
+        }
+        return timer.isRunning();
+    }
+
+    public void startTimer(int position){
+        if(bound) {
+            timerService.startTimer(dataset.get(position).getId());
+        }
+    }
+
+    public void pauseTimer(int position){
+        if(bound){
+            timerService.stopTimer(dataset.get(position).getId());
+        }
+    }
+
     View.OnClickListener addOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
