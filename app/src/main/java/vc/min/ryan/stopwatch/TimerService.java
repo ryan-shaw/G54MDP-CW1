@@ -25,7 +25,7 @@ public class TimerService extends Service {
     /**
      * TimerItem data set
      */
-    private List<TimerItem> timerItems = new ArrayList<TimerItem>();
+    private ArrayList<TimerItem> timerItems = new ArrayList<TimerItem>();
 
     private Handler handler                             = new Handler();
     private final IBinder mBinder                       = new LocalBinder();
@@ -188,17 +188,17 @@ public class TimerService extends Service {
         return timerItems;
     }
 
-    private TimerItem getTimerById(int timerId){
-        for(TimerItem item : timerItems){
-            if(item.getId() == timerId)
+    private TimerItem getTimerById(int timerId) {
+        for (TimerItem item : timerItems) {
+            if (item.getId() == timerId)
                 return item;
         }
         return null;
     }
 
-    private void sendTime(TimerItem item) {
+    private void sendTime(){
         Intent intent = new Intent("time");
-        intent.putExtra("obj", item);
+        intent.putExtra("timers", timerItems);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -208,8 +208,8 @@ public class TimerService extends Service {
             for(int i = 0; i < timerItems.size(); i++) {
                 TimerItem item = timerItems.get(i);
                 item.updateTimer();
-                sendTime(item);
             }
+            sendTime();
             if(getTimersRunning() > 0)
                 handler.post(this);
         }

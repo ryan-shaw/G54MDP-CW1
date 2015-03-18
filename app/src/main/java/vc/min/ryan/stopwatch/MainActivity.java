@@ -149,12 +149,16 @@ public class MainActivity extends Activity {
     private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            TimerItem item = (TimerItem) intent.getParcelableExtra("obj");
+            ArrayList<TimerItem> timers = intent.getParcelableArrayListExtra("timers");
+
             for(int i = 0; i < mAdapter.getData().size(); i++){
-                TimerItem item1 = mAdapter.getData().get(i);
-                if(item1.getId() == item.getId()){
-                    item1 = item;
-                    mAdapter.notifyItemChanged(i);
+                TimerItem item = mAdapter.getData().get(i);
+                for(int j = 0; j < timers.size(); j++){
+                    TimerItem item1 = timers.get(j);
+                    if(item1.getId() == item.getId()){
+                        item = item1;
+                        mAdapter.notifyItemChanged(i);
+                    }
                 }
             }
         }

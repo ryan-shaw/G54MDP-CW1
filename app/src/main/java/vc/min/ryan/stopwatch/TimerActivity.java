@@ -161,9 +161,13 @@ public class TimerActivity extends Activity {
     private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            TimerItem item = intent.getParcelableExtra("obj");
-            if(item.getId() != timerId) return;
-            secondsText.setText(item.getFormattedTime());
+            ArrayList<TimerItem> timers = intent.getParcelableArrayListExtra("timers");
+            for(TimerItem timer : timers){
+                if(timer.getId() == timerId){
+                    secondsText.setText(timer.getFormattedTime());
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
             mAdapter.notifyDataSetChanged();
         }
     };
