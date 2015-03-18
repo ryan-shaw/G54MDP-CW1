@@ -17,14 +17,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: vc.min.ryan.stopwatch" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef46a1fc-5b70-4b4e-90b8-bea57e076e3f" name="Default" comment="Changed stuff.">
+    <list default="true" id="ef46a1fc-5b70-4b4e-90b8-bea57e076e3f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/RecyclerViewHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/RecyclerViewHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerDataAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerDataAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerItem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java" afterPath="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="363a6816-3138-40a9-8885-a59bbd8b19b2" name="Failed commit: Default" comment="RecyclerViewHolder" />
@@ -52,18 +47,21 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1918" max-vertical-offset="2445">
-              <caret line="161" column="20" selection-start-line="161" selection-start-column="20" selection-end-line="161" selection-end-column="20" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="823" max-vertical-offset="2355">
+              <caret line="90" column="47" selection-start-line="90" selection-start-column="47" selection-end-line="90" selection-end-column="47" />
+              <folding>
+                <element signature="e#3144#3145#0" expanded="true" />
+                <element signature="e#3175#3176#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimerService.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TimerService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="2760">
-              <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.28907922" vertical-offset="780" max-vertical-offset="2865">
+              <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -72,7 +70,7 @@
       <file leaf-file-name="TimerItem.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1896" max-vertical-offset="2595">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2565" max-vertical-offset="2985">
               <caret line="171" column="7" selection-start-line="171" selection-start-column="7" selection-end-line="171" selection-end-column="7" />
               <folding />
             </state>
@@ -82,22 +80,19 @@
       <file leaf-file-name="RecyclerViewHolder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/RecyclerViewHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="570">
+            <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="660">
               <caret line="20" column="74" selection-start-line="20" selection-start-column="74" selection-end-line="20" selection-end-column="74" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimerDataAdapter.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TimerDataAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerDataAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.438326" vertical-offset="281" max-vertical-offset="960">
-              <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-              <folding>
-                <element signature="e#2106#2611#0" expanded="true" />
-                <element signature="e#2600#2601#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
+              <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,7 +130,7 @@
       <file leaf-file-name="TimerActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1480" max-vertical-offset="2355">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2130" max-vertical-offset="2865">
               <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="73" />
               <folding />
             </state>
@@ -1463,13 +1458,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerActivity.java" />
         <option value="$PROJECT_DIR$/app/.gitignore" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/timer_text_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/RecyclerViewHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerDataAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java" />
       </list>
     </option>
   </component>
@@ -1607,7 +1602,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -1632,6 +1626,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1647,7 +1642,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="033d1b3b08d87175" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
@@ -1918,7 +1913,11 @@
       <created>1426608473493</created>
       <updated>1426608473493</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Timer play/pause control from main activity.">
+      <created>1426669324735</created>
+      <updated>1426669324736</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2005,7 +2004,8 @@
     <MESSAGE value="Timer service now runs if there are timers still running after the MainActivity is destroyed." />
     <MESSAGE value="Changes to lapping." />
     <MESSAGE value="Changed stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed stuff." />
+    <MESSAGE value="Timer play/pause control from main activity." />
+    <option name="LAST_COMMIT_MESSAGE" value="Timer play/pause control from main activity." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2025,7 +2025,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="680">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3144#3145#0" expanded="true" />
+            <element signature="e#3175#3176#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2341,7 +2344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="525">
           <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2385,26 +2387,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1568" max-vertical-offset="2820">
-          <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1480" max-vertical-offset="2355">
           <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1918" max-vertical-offset="2445">
-          <caret line="161" column="20" selection-start-line="161" selection-start-column="20" selection-end-line="161" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -2419,12 +2405,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerDataAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.438326" vertical-offset="281" max-vertical-offset="960">
-          <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
+          <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="823" max-vertical-offset="2355">
+          <caret line="90" column="47" selection-start-line="90" selection-start-column="47" selection-end-line="90" selection-end-column="47" />
           <folding>
-            <element signature="e#2106#2611#0" expanded="true" />
-            <element signature="e#2600#2601#0" expanded="true" />
+            <element signature="e#3144#3145#0" expanded="true" />
+            <element signature="e#3175#3176#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/vc/min/ryan/stopwatch/TimerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28907922" vertical-offset="780" max-vertical-offset="2865">
+          <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -84,6 +84,12 @@ public class TimerService extends Service {
     public void startTimer(int timerId){
         getTimerById(timerId).start();
         updateNotification();
+
+        // If no timers are running the loop would have stopped
+        // if 1 timer is running that means it's the timer we've
+        // just added so need to start the loop again.
+        if(getTimersRunning() == 1)
+            handler.post(updateTime);
     }
 
     /**
@@ -204,7 +210,8 @@ public class TimerService extends Service {
                 item.updateTimer();
                 sendTime(item);
             }
-            handler.post(this);
+            if(getTimersRunning() > 0)
+                handler.post(this);
         }
     };
 }

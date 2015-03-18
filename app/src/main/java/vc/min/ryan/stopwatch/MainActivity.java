@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     private GUIUtils guiUtils;
     private Intent serviceIntent;
 
+    private final String TAG = "MainActivity";
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -64,54 +66,44 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
-        Log.d("tag", "onStart");
+        Log.d(TAG, "onStart");
+        LocalBroadcastManager.getInstance(this).registerReceiver(timeReceiver,
+                new IntentFilter("time"));
     }
 
     @Override
     protected void onStop(){
-        Log.d("tag", "onStop");
+        Log.d(TAG, "onStop");
         super.onStop();
+        // Unregister as the activity is not visible
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
     }
 
     @Override
     protected void onDestroy(){
-        Log.d("tag", "onDestroy");
+        Log.d(TAG, "onDestroy");
         super.onDestroy();
         if(bound){
             unbindService(timerServiceConnection);
             bound = false;
         }
 
-        // Destroy the service if no timers are running and user exited app
-        boolean anyRunning = false;
-        for(int i = 0; i < timerService.getTimers().size(); i++){
-            if(timerService.getTimers().get(i).isRunning()){
-                anyRunning = true;
-                break;
-            }
-        }
-        if(!anyRunning)
+        // Stop the service if no timers exist.
+        if(timerService.getTimers().size() == 0) {
+            Log.d(TAG, "Stopping timer service");
             stopService(serviceIntent);
+        }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        Log.d("MainActivity", "onResume");
-        LocalBroadcastManager.getInstance(this).registerReceiver(timeReceiver,
-                new IntentFilter("time"));
-        if(bound) {
-            mAdapter.updateData(timerService.getTimers());
-            mAdapter.notifyDataSetChanged();
-        }
-
+        Log.d(TAG, "onResume");
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        // Unregister as the activity is not visible
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
     }
 
     /**
@@ -120,6 +112,7 @@ public class MainActivity extends Activity {
      * @return newState, true = running, false = not running
      */
     public boolean toggleTimer(int position){
+        if(!bound) return false;
         TimerItem timer = dataset.get(position);
         if(timer.isRunning()) {
             timerService.pauseTimer(timer.getId());
@@ -174,6 +167,7 @@ public class MainActivity extends Activity {
             timerService = localBinder.getService();
             bound = true;
             mAdapter.updateData(timerService.getTimers());
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
