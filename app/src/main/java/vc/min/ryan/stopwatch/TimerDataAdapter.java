@@ -21,6 +21,7 @@ public class TimerDataAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private List<TimerItem> mDataset;
     private Context mContext;
+    private final String TAG = "TimerDataAdapter";
 
     public TimerDataAdapter(List<TimerItem> dataset, Context context){
         mDataset = dataset;

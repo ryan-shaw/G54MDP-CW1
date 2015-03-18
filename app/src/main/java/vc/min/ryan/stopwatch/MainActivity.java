@@ -112,8 +112,8 @@ public class MainActivity extends Activity {
      * @return newState, true = running, false = not running
      */
     public boolean toggleTimer(int position){
-        if(!bound) return false;
-        TimerItem timer = dataset.get(position);
+        if(!bound || timerService.getTimers().size() <= position) return false;
+        TimerItem timer = timerService.getTimers().get(position);
         if(timer.isRunning()) {
             timerService.pauseTimer(timer.getId());
         } else {
