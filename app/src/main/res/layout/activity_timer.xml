@@ -54,7 +54,7 @@
     <ImageButton
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
-        android:id="@+id/reset_button"
+        android:id="@+id/delete_button"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_action_discard"
         android:layout_alignParentEnd="true"
@@ -79,5 +79,19 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/lap_button"
         android:transitionGroup="true"/>
+
+    <ImageButton
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:id="@+id/reset_button"
+        android:layout_below="@id/delete_button"
+        android:src="@drawable/ic_action_refresh"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-10dp"
+        android:layout_alignStart="@+id/start_button"
+        android:background="@drawable/transparent_ripple"
+        android:stateListAnimator="@anim/fab_anim"
+        android:elevation="5dp"/>
+
 
 </RelativeLayout>

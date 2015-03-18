@@ -33,6 +33,7 @@ public class TimerActivity extends Activity {
     private TextView secondsText;
     private ImageButton fabStart;
     private ImageButton fabDestroy;
+    private ImageButton fabReset;
     private Button lapButton;
     private View fabStop;
     private ListView lapList;
@@ -49,7 +50,8 @@ public class TimerActivity extends Activity {
 
         secondsText = (TextView) findViewById(R.id.time);
         fabStart = (ImageButton) findViewById(R.id.start_button);
-        fabDestroy = (ImageButton) findViewById(R.id.reset_button);
+        fabDestroy = (ImageButton) findViewById(R.id.delete_button);
+        fabReset = (ImageButton) findViewById(R.id.reset_button);
         lapButton = (Button) findViewById(R.id.lap_button);
         lapList = (ListView) findViewById(R.id.lap_list);
 
@@ -57,6 +59,7 @@ public class TimerActivity extends Activity {
         GUIUtils.configureFab(fabDestroy);
         fabStart.setOnClickListener(startListener);
         fabDestroy.setOnClickListener(destroyListener);
+        fabReset.setOnClickListener(resetListener);
         lapButton.setOnClickListener(lapListener);
         timerId  = getIntent().getIntExtra("timerId", 0);
         Log.d(TAG, "" + timerId);
@@ -127,10 +130,10 @@ public class TimerActivity extends Activity {
         @Override
         public void onClick(View view){
             Log.d("TimerActivity", "Destroy timer: " + timerId);
+            finish();
             if(bound){
                 timerService.destroyTimer(timerId);
             }
-            finish();
         }
     };
 
@@ -145,6 +148,17 @@ public class TimerActivity extends Activity {
                     timerService.startTimer(timerId);
                     fabStart.setImageResource(R.drawable.ic_action_pause);
                 }
+            }
+        }
+    };
+
+    View.OnClickListener resetListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View view){
+            if(bound){
+                timerService.resetTimer(timerId);
+                mAdapter.notifyDataSetChanged();
+                fabStart.setImageResource(R.drawable.ic_action_play);
             }
         }
     };
@@ -165,10 +179,11 @@ public class TimerActivity extends Activity {
             for(TimerItem timer : timers){
                 if(timer.getId() == timerId){
                     secondsText.setText(timer.getFormattedTime());
-                    mAdapter.notifyDataSetChanged();
+                    break;
                 }
             }
-            mAdapter.notifyDataSetChanged();
+            if(bound)
+                mAdapter.notifyDataSetChanged();
         }
     };
 

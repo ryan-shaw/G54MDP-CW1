@@ -92,14 +92,15 @@ public class TimerItem implements Parcelable{
     }
 
     /**
-     * Stop the timer running
+     * Stop the timer running, NOT USED
+     * @see vc.min.ryan.stopwatch.TimerService#pauseTimer
      */
     public void stop(){
         running = false;
     }
 
     /**
-     * Resume the timer from paused state
+     * Resume the timer from paused state, NOT USED
      */
     public void resume(){
         running = true;
@@ -119,6 +120,9 @@ public class TimerItem implements Parcelable{
     public void reset(){
         time = 0;
         pauseTime = 0;
+        running = false;
+        laps.clear();
+        timeBeforeLap = 0;
         startTime = SystemClock.elapsedRealtime();
     }
 
@@ -126,6 +130,7 @@ public class TimerItem implements Parcelable{
      * Create a new lap
      */
     public void lap(){
+        if(!running) return;
         long lapTime = time - timeBeforeLap;
         timeBeforeLap = time;
         laps.add(new LapItem(lapTime));

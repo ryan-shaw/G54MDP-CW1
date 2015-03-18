@@ -58,7 +58,6 @@ public class MainActivity extends Activity {
         mRecyclerView.setAdapter(mAdapter);
 
         serviceIntent = new Intent(this, TimerService.class);
-
         startService(serviceIntent);
         bindService(serviceIntent, timerServiceConnection, Context.BIND_AUTO_CREATE);
     }
@@ -69,6 +68,9 @@ public class MainActivity extends Activity {
         Log.d(TAG, "onStart");
         LocalBroadcastManager.getInstance(this).registerReceiver(timeReceiver,
                 new IntentFilter("time"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(destroyReceiver,
+                new IntentFilter("destroy"));
+
     }
 
     @Override
@@ -77,6 +79,7 @@ public class MainActivity extends Activity {
         super.onStop();
         // Unregister as the activity is not visible
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timeReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(destroyReceiver);
     }
 
     @Override
@@ -99,11 +102,16 @@ public class MainActivity extends Activity {
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "onResume");
+        if(bound) {
+            mAdapter.updateData(timerService.getTimers());
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     protected void onPause(){
         super.onPause();
+        Log.d(TAG, "onPause");
     }
 
     /**
@@ -164,6 +172,21 @@ public class MainActivity extends Activity {
         }
     };
 
+    private BroadcastReceiver destroyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int timerId = intent.getIntExtra("timerId", -1);
+            Log.d(TAG, "Received timer to delete: "+ timerId);
+            if(timerId != -1){
+                if(bound){
+                    mAdapter.updateData(timerService.getTimers());
+                }
+            }
+            if(bound)
+                mAdapter.notifyDataSetChanged();
+        }
+    };
+
     private ServiceConnection timerServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -172,6 +195,7 @@ public class MainActivity extends Activity {
             bound = true;
             mAdapter.updateData(timerService.getTimers());
             mAdapter.notifyDataSetChanged();
+            Log.d(TAG, "Service connected");
         }
 
         @Override

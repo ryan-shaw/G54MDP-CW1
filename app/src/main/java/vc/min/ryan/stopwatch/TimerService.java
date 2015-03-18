@@ -121,6 +121,10 @@ public class TimerService extends Service {
     public void pauseTimer(int timerId){
         getTimerById(timerId).pause();
         updateNotification();
+
+        // Send time if non are running, as it causes the timer not to update.
+        if(getTimersRunning() == 0)
+            sendTime();
     }
 
     /**
@@ -187,7 +191,8 @@ public class TimerService extends Service {
         for(int i = timerItems.size() - 1; i >= 0; i--){
             TimerItem item = timerItems.get(i);
             if(item.getId() == timerId){
-                timerItems.remove(i);
+                Log.d(TAG, "Removing timer");
+                timerItems.remove(item);
             }
         }
         Intent intent = new Intent("destroy");
@@ -237,8 +242,7 @@ public class TimerService extends Service {
                 item.updateTimer();
             }
             sendTime();
-            if(getTimersRunning() > 0)
-                handler.post(this);
+            handler.post(this);
         }
     };
 }
