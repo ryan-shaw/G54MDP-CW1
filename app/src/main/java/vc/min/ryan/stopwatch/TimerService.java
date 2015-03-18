@@ -25,13 +25,13 @@ public class TimerService extends Service {
     /**
      * TimerItem data set
      */
-    private ArrayList<TimerItem> timerItems = new ArrayList<TimerItem>();
-
+    private ArrayList<TimerItem> timerItems             = new ArrayList<TimerItem>();
     private Handler handler                             = new Handler();
     private final IBinder mBinder                       = new LocalBinder();
     private Notification.Builder notificationBuilder    = null;
     private NotificationManager notificationManager     = null;
     private final int NOTIFICATION_ID                   = 1;
+    private final String TAG                            = "TimerService";
     /**
      * Holds the currentTimerId to assign to the next created timer
      */
@@ -46,7 +46,7 @@ public class TimerService extends Service {
 
     @Override
     public void onCreate(){
-        Log.d("service", "onCreate");
+        Log.d(TAG, "onCreate");
         // Start timer loop
         handler.post(updateTime);
         // Create notification builder
@@ -59,18 +59,19 @@ public class TimerService extends Service {
                 .setSmallIcon(R.drawable.abc_ab_share_pack_holo_dark) //TODO: Make icon
                 .setContentIntent(pendingIntent);
 
+        // Start the notification in foreground
         startForeground(NOTIFICATION_ID, notificationBuilder.build());
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d("service", "onBind");
+        Log.d(TAG, "onBind");
         return mBinder;
     }
 
     /**
      * Add timer to timer list
-     * @param timer
+     * @param timer, the timer item
      */
     public void addTimer(TimerItem timer){
         timerItems.add(timer);
@@ -79,7 +80,7 @@ public class TimerService extends Service {
 
     /**
      * Start a timer
-     * @param timerId
+     * @param timerId, the timer id
      */
     public void startTimer(int timerId){
         getTimerById(timerId).start();
@@ -94,7 +95,7 @@ public class TimerService extends Service {
 
     /**
      * Stop a timer
-     * @param timerId
+     * @param timerId, the timer id
      */
     public void stopTimer(int timerId){
         getTimerById(timerId).stop();
@@ -102,8 +103,11 @@ public class TimerService extends Service {
     }
 
     /**
-     * Resume a timer
-     * @param timerId
+     * Resume a timer, NOT USED
+     * It seems pointless to implement stop and pause.
+     * But this is here, in case that feature is to be added in the future
+     * (same goes for below methods)
+     * @param timerId, the timer id
      */
     public void resumeTimer(int timerId){
         getTimerById(timerId).resume();
@@ -111,8 +115,8 @@ public class TimerService extends Service {
     }
 
     /**
-     * Pause a timer
-     * @param timerId
+     * Pause a timer, NOT USED
+     * @param timerId, the timer id
      */
     public void pauseTimer(int timerId){
         getTimerById(timerId).pause();
@@ -120,8 +124,8 @@ public class TimerService extends Service {
     }
 
     /**
-     * Reset a timer
-     * @param timerId
+     * Reset a timer, NOT USED
+     * @param timerId, the timer id
      */
     public void resetTimer(int timerId){
         getTimerById(timerId).reset();
@@ -130,7 +134,7 @@ public class TimerService extends Service {
 
     /**
      * Lap a timer
-     * @param timerId
+     * @param timerId, the timer id
      */
     public void lapTimer(int timerId){
         getTimerById(timerId).lap();
@@ -145,10 +149,18 @@ public class TimerService extends Service {
         return currentTimerId++;
     }
 
+    /**
+     * Get laps for a timer
+     * @param timerId, the timer id
+     * @return List of LapItem's
+     */
     public List<LapItem> getLaps(int timerId){
         return getTimerById(timerId).getLaps();
     }
 
+    /**
+     * Update the foreground notification with number of running timers
+     */
     private void updateNotification(){
         notificationBuilder.setContentText(getTimersRunning() + " timers running");
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
@@ -166,8 +178,12 @@ public class TimerService extends Service {
         return running;
     }
 
+    /**
+     * Destroy a timer
+     * @param timerId
+     */
     public void destroyTimer(int timerId){
-        Log.d("service", "Destroy: "+ timerId);
+        Log.d(TAG, "Destroy: "+ timerId);
         for(int i = timerItems.size() - 1; i >= 0; i--){
             TimerItem item = timerItems.get(i);
             if(item.getId() == timerId){
@@ -188,6 +204,11 @@ public class TimerService extends Service {
         return timerItems;
     }
 
+    /**
+     * Get a timer by it's ID
+     * @param timerId, the timer id
+     * @return timer, the TimerItem or null
+     */
     private TimerItem getTimerById(int timerId) {
         for (TimerItem item : timerItems) {
             if (item.getId() == timerId)
@@ -196,12 +217,18 @@ public class TimerService extends Service {
         return null;
     }
 
+    /**
+     * Send the timers to the activities
+     */
     private void sendTime(){
         Intent intent = new Intent("time");
         intent.putExtra("timers", timerItems);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
+    /**
+     * The runnable update time method
+     */
     private Runnable updateTime = new Runnable() {
         @Override
         public void run(){

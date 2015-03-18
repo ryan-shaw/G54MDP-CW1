@@ -28,7 +28,7 @@ public class TimerItem implements Parcelable{
      * Never used in the project but needed for when receiving parcel
      */
     public TimerItem(){
-        laps = new ArrayList<LapItem>();
+        laps = new ArrayList<>();
     }
 
     public int describeContents(){
@@ -68,7 +68,7 @@ public class TimerItem implements Parcelable{
         this.pauseTime = time;
         this.running = false;
         this.destroyed = false;
-        this.laps = new ArrayList<LapItem>();
+        this.laps = new ArrayList<>();
         this.timeBeforeLap = timeBeforeLap;
     }
 
@@ -95,14 +95,6 @@ public class TimerItem implements Parcelable{
      * Stop the timer running
      */
     public void stop(){
-        running = false;
-    }
-
-    /**
-     * Destroy the timer
-     */
-    public void destroy(){
-        destroyed = true;
         running = false;
     }
 
@@ -168,7 +160,7 @@ public class TimerItem implements Parcelable{
 
     /**
      * Get laps list
-     * @return laps
+     * @return laps, list of LapItem's
      */
     public List<LapItem> getLaps(){
         return laps;
@@ -176,18 +168,10 @@ public class TimerItem implements Parcelable{
 
     /**
      * Get the running value of the timer
-     * @return running
+     * @return running, boolean of running val
      */
     public boolean isRunning() {
         return running;
-    }
-
-    /**
-     * Check if the timer is pending to be destroyed
-     * @return
-     */
-    public boolean isDestroyed() {
-        return destroyed;
     }
 
 }
